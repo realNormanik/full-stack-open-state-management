@@ -18,7 +18,8 @@ export const createAnecdote = async (newAnecdote) => {
   })
 
   if (!response.ok) {
-    throw new Error('Failed to create anecdote')
+    const body = await response.json().catch(() => ({}))
+    throw new Error(body.error ?? 'Failed to create anecdote')
   }
 
   return await response.json()
