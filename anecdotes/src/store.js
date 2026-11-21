@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { getAll, createNew, update, remove } from './services/anecdotes'
 
-const useAnecdoteStore = create((set) => ({
+export const useAnecdoteStore = create((set) => ({
   anecdotes: [],
   filter: '',
   actions: {
