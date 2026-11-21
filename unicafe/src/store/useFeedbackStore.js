@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 const useFeedbackStore = create((set) => ({
   good: 0,
@@ -10,4 +10,4 @@ const useFeedbackStore = create((set) => ({
   addBad: () => set((state) => ({ bad: state.bad + 1 })),
 }))
 
-export default useFeedbackStore
+export default useFeedbackStore;

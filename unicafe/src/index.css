@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Gabarito", sans-serif;
+
+  /* Semantic colors */
+  --color-background: oklch(98.2% 0.005 200);
+
+  --color-panel: oklch(100% 0 0);
+  --color-soft: oklch(95.5% 0.01 200);
+
+  --color-foreground: oklch(20% 0.03 230);
+  --color-muted: oklch(50% 0.025 230);
+
+  --color-line: oklch(91% 0.01 210);
+
+  --color-brand: oklch(48% 0.11 190);
+  --color-brand-ink: oklch(24% 0.05 215);
+  --color-brand-soft: oklch(95% 0.035 190);
+  --color-on-brand: oklch(100% 0 0);
+
+  /* Feedback tones */
+  --color-good: oklch(62% 0.15 155);
+  --color-ok: oklch(78% 0.15 85);
+  --color-bad: oklch(60% 0.2 25);
+
+  --animate-rise: rise 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: oklch(16% 0.02 230);
+
+    --color-panel: oklch(20% 0.025 230);
+    --color-soft: oklch(25% 0.03 230);
+
+    --color-foreground: oklch(95% 0.01 200);
+    --color-muted: oklch(70% 0.025 210);
+
+    --color-line: oklch(30% 0.03 230);
+
+    --color-brand: oklch(80% 0.12 190);
+    --color-brand-ink: oklch(26% 0.05 215);
+    --color-brand-soft: oklch(30% 0.06 190);
+    --color-on-brand: oklch(18% 0.04 215);
+
+    --color-good: oklch(75% 0.16 155);
+    --color-ok: oklch(82% 0.14 85);
+    --color-bad: oklch(72% 0.17 25);
+  }
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  main {
+    @apply mx-auto flex w-full max-w-4xl flex-col gap-5 px-6 py-12 sm:py-20;
+  }
+
+  header {
+    @apply flex flex-col gap-3;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-background font-sans text-foreground antialiased transition-colors duration-300;
+    font-synthesis-weight: none;
+  }
+
+  h1 {
+    @apply font-display text-5xl font-bold leading-none tracking-tight text-foreground sm:text-6xl;
+  }
+
+  h2 {
+    @apply font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl;
+  }
+
+  button {
+    @apply flex w-full cursor-pointer items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 text-left text-base font-semibold capitalize text-white transition duration-200 hover:bg-white/20 active:scale-[0.98];
+
+    &::before {
+      content: "";
+      @apply size-2.5 shrink-0 rounded-full bg-white/60;
+    }
+
+    &[data-tone="good"]::before {
+      @apply bg-good;
+    }
+
+    &[data-tone="neutral"]::before {
+      @apply bg-ok;
+    }
+
+    &[data-tone="bad"]::before {
+      @apply bg-bad;
+    }
+  }
+
+  ::selection {
+    @apply bg-brand text-on-brand;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
+
+/* Layout */
+@utility bento {
+  @apply grid animate-rise grid-cols-1 gap-5 md:grid-cols-6;
+}
+
+@utility stack {
+  @apply flex flex-col gap-3;
+}
+
+/* Tiles */
+@utility card {
+  @apply flex flex-col gap-6 rounded-4xl border border-line bg-panel p-7 sm:p-10;
+}
+
+@utility card-soft {
+  @apply flex flex-col gap-6 rounded-4xl bg-soft p-7 sm:p-10;
+}
+
+@utility card-ink {
+  @apply flex flex-col justify-between gap-8 rounded-4xl bg-brand-ink p-7 text-white sm:p-10;
+}
+
+@utility card-brand {
+  @apply flex flex-col justify-between gap-6 rounded-4xl bg-brand p-7 text-on-brand sm:p-10;
+}
+
+/* Text */
+@utility lead {
+  @apply max-w-prose text-base text-muted sm:text-lg;
+}
+
+@utility label {
+  @apply text-sm font-medium text-muted;
+}
+
+@utility chip {
+  @apply inline-flex w-fit shrink-0 items-center rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand;
+}
+
+/* Distribution bar */
+@utility meter {
+  @apply flex h-2.5 w-full overflow-hidden rounded-full bg-soft;
+
+  & > span {
+    @apply block h-full transition-all duration-500;
+  }
+
+  & > span[data-tone="good"] {
+    @apply bg-good;
+  }
+
+  & > span[data-tone="neutral"] {
+    @apply bg-ok;
+  }
+
+  & > span[data-tone="bad"] {
+    @apply bg-bad;
+  }
+}
+
+/* Data table */
+@utility data-table {
+  @apply w-full border-collapse text-left;
+
+  & td {
+    @apply border-t border-line py-4 pr-4 text-base;
+  }
+
+  & tr:first-child td {
+    @apply border-t-0;
+  }
+
+  & td:first-child {
+    @apply flex items-center gap-3 capitalize text-muted;
+  }
+
+  & td:last-child {
+    @apply pr-0 text-right font-display text-2xl font-semibold tabular-nums text-foreground;
+  }
+}
+
+@utility dot {
+  @apply size-2.5 shrink-0 rounded-full bg-line;
+
+  &[data-tone="good"] {
+    @apply bg-good;
+  }
+
+  &[data-tone="neutral"] {
+    @apply bg-ok;
+  }
+
+  &[data-tone="bad"] {
+    @apply bg-bad;
+  }
+}
+
+@utility u1 {
+  @apply flex flex-col items-center;
+}
