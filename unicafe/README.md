@@ -4,20 +4,6 @@ This project is a new version of the "Unicafe" application from Part 1 of the Fu
 
 ## 🗂️ Project Structure
 
-The repository is organized following the structure required for Full Stack Open submissions. The root of the submission repository contains the contents of [fs-statemanagement](https://github.com/fullstack-hy2020/fs-statemanagement):
-
-```
-.git
-.github/
-.gitignore
-unicafe/
-unicafe-tests/
-anecdotes/
-anecdotes-tests/
-query-anecdotes/
-query-anecdotes-tests/
-```
-
 The Unicafe application itself lives inside the `unicafe` folder:
 
 ```

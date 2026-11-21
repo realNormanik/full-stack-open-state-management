@@ -1,36 +1,41 @@
-import { useAnecdoteActions } from "../store"
-import { useNotificationActions } from "../notificationStore"
+import { useAnecdoteActions } from "../store";
+import { useNotificationActions } from "../notificationStore";
 
 const AnecdoteForm = () => {
-  const { add } = useAnecdoteActions()
-  const { setNotification } = useNotificationActions()
+  const { add } = useAnecdoteActions();
+  const { setNotification } = useNotificationActions();
 
   const addAnecdote = async (event) => {
-    event.preventDefault()
-    const form = event.target
-    const content = form.anecdote.value.trim()
-    if (!content) return
+    event.preventDefault();
+    const form = event.target;
+    const content = form.anecdote.value.trim();
+    if (!content) return;
 
     try {
-      await add(content)
-      setNotification(`you created '${content}'`, 5)
-      form.reset()
+      await add(content);
+      setNotification(`you created '${content}'`, 5);
+      form.reset();
     } catch (error) {
-      console.error(error)
-    }
-  }
+      console.error(error);
+    };
+  };
 
   return (
-    <div>
-      <h2>create new</h2>
-      <form onSubmit={addAnecdote}>
-        <div>
-          <input name="anecdote" data-testid="new" />
-        </div>
-        <button>create</button>
+    <section className="panel">
+      <h2>Create new</h2>
+      <form className="flex flex-col gap-3 sm:flex-row" onSubmit={addAnecdote}>
+        <input
+          className="field sm:flex-1"
+          name="anecdote"
+          aria-label="Text of the new anecdote"
+          placeholder="Write something worth remembering"
+          autoComplete="off"
+          data-testid="new"
+        />
+        <button className="create">create</button>
       </form>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default AnecdoteForm
+export default AnecdoteForm;
