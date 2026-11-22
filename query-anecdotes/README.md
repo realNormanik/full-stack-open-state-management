@@ -118,7 +118,7 @@ on:
 
 ```js
 // requests.js
-const baseUrl = "http://localhost:3001/anecdotes";
+const baseUrl = "/anecdotes";
 
 export const getAnecdotes = async () => {
   const response = await fetch(baseUrl);
