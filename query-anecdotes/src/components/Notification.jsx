@@ -1,18 +1,15 @@
-import { useNotificationValue } from '../NotificationContext'
+import { useNotificationValue } from "../NotificationContext";
 
 const Notification = () => {
-  const notification = useNotificationValue()
+  const notification = useNotificationValue();
 
-  const style = {
-    border: "solid",
-    padding: 10,
-    borderWidth: 1,
-    marginBottom: 5,
-  }
+  if (!notification) return null;
 
-  if (!notification) return null
+  return (
+    <div className="toast" role="status" data-testid="notification">
+      {notification}
+    </div>
+  );
+};
 
-  return <div data-testid="notification" style={style}>{notification}</div>
-}
-
-export default Notification
+export default Notification;

@@ -1,111 +1,201 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@theme {
+  /* Typography: editorial serif for words, crisp grotesque for interface */
+  --font-display: "Newsreader", ui-serif, Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Light theme: cool newsprint paper, navy ink, vermilion accent */
+  --color-paper: oklch(98.4% 0.004 250);
+  --color-sheet: oklch(100% 0 0);
+  --color-wash: oklch(96% 0.008 250);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  --color-ink: oklch(21% 0.03 258);
+  --color-ink-muted: oklch(52% 0.02 258);
+  --color-rule: oklch(90% 0.008 250);
+
+  --color-accent: oklch(55% 0.19 33);
+  --color-accent-strong: oklch(47% 0.18 33);
+  --color-accent-wash: oklch(95% 0.03 45);
+  --color-on-accent: oklch(99% 0.005 60);
+
+  --animate-slide: slide 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade: fade 400ms ease-out both;
+
+  @keyframes slide {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }
 
+/* Dark theme: midnight blue-black, warm amber accent */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+    --color-paper: oklch(16% 0.02 258);
+    --color-sheet: oklch(21% 0.024 258);
+    --color-wash: oklch(25% 0.026 258);
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --color-ink: oklch(95% 0.008 250);
+    --color-ink-muted: oklch(70% 0.02 255);
+    --color-rule: oklch(30% 0.026 258);
+
+    --color-accent: oklch(74% 0.16 50);
+    --color-accent-strong: oklch(80% 0.15 55);
+    --color-accent-wash: oklch(28% 0.05 45);
+    --color-on-accent: oklch(17% 0.03 50);
   }
 }
 
-body {
-  margin: 0;
-}
+@layer base {
+  html {
+    @apply scroll-smooth;
+    color-scheme: light dark;
+  }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
+  header {
+    @apply flex flex-col gap-3;
+  }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
+  body {
+    @apply m-0 min-h-screen bg-paper font-sans text-base leading-relaxed text-ink antialiased transition-colors duration-300;
+    font-synthesis-weight: none;
+  }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+  main {
+    @apply mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 lg:py-20;
+  }
+
+  h1 {
+    @apply font-display text-5xl leading-[0.95] font-medium tracking-tight text-balance;
+  }
+
+  h2 {
+    @apply font-display text-2xl leading-tight font-medium tracking-tight capitalize;
+  }
+
+  button {
+    @apply cursor-pointer transition duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  ::selection {
+    @apply bg-accent text-on-accent;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-accent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+/* Page layout: sticky sidebar next to a reading column */
+@utility layout {
+  @apply grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)] lg:gap-24;
+}
+
+@utility sidebar {
+  @apply flex flex-col gap-5 lg:sticky lg:top-20;
+}
+
+@utility glyph {
+  @apply block size-9 text-accent;
+
+  & > svg {
+    @apply size-full;
   }
 }
-p {
-  margin: 0;
+
+/* Create form */
+@utility composer {
+  @apply flex flex-col gap-5 border-t-2 border-ink pt-5;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+@utility compose {
+  @apply m-0 flex flex-col gap-5;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+@utility field {
+  @apply w-full rounded-none border-0 border-b-2 border-rule bg-transparent px-0 py-3 text-base text-ink transition duration-150 placeholder:text-ink-muted focus:border-accent focus:outline-none;
+}
+
+@utility create {
+  @apply inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-on-accent capitalize hover:bg-accent-strong;
+}
+
+/* Anecdote ledger */
+@utility ledger {
+  @apply m-0 list-none border-t-2 border-ink p-0;
+  counter-reset: item;
+}
+
+@utility entry {
+  @apply grid animate-fade grid-cols-[2rem_1fr] gap-x-3 gap-y-4 border-b border-rule py-7 sm:grid-cols-[3.25rem_1fr_8.5rem] sm:gap-x-4;
+  counter-increment: item;
+
+  &::before {
+    content: counter(item, decimal-leading-zero);
+    @apply font-sans text-xl font-semibold text-accent tabular-nums sm:text-2xl;
+  }
+}
+
+@utility quote {
+  @apply col-start-2 m-0 font-display text-xl leading-snug text-pretty text-ink sm:text-2xl;
+}
+
+@utility meta {
+  @apply col-start-2 flex items-center justify-between gap-3 sm:col-start-3 sm:row-start-1 sm:flex-col sm:items-end sm:justify-start sm:gap-3 sm:pt-1;
+}
+
+@utility tally {
+  @apply text-sm font-medium text-ink-muted tabular-nums;
+}
+
+@utility vote {
+  @apply inline-flex items-center gap-1.5 rounded-lg border border-rule bg-sheet px-3.5 py-2 text-sm font-semibold text-ink hover:border-accent hover:bg-accent hover:text-on-accent;
+}
+
+/* Loading and error pages */
+@utility state {
+  @apply flex min-h-[60vh] flex-col items-center justify-center gap-5 text-center;
+
+  & > p {
+    @apply m-0 max-w-md font-display text-2xl leading-snug text-pretty;
+  }
+}
+
+@utility spinner {
+  @apply size-13 animate-spin rounded-full border-2 border-rule border-t-accent;
+}
+
+@utility badge {
+  @apply grid size-14 place-items-center rounded-full bg-accent-wash text-accent;
+}
+
+/* Notification: slides in at the top corner and never blocks clicks */
+@utility toast {
+  @apply pointer-events-none fixed inset-x-4 top-4 z-50 animate-slide rounded-lg border border-l-4 border-rule border-l-accent bg-sheet px-5 py-4 text-sm font-medium text-ink shadow-xl sm:inset-x-auto sm:top-6 sm:right-6 sm:w-full sm:max-w-sm;
+}
+
+@utility u1 {
+  @apply flex flex-col items-center;
 }

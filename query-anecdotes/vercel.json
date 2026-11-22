@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "db.json"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/anecdotes",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/anecdotes/:path*",
+      "destination": "api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "outputDirectory": "public"
+}

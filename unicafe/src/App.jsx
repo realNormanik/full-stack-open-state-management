@@ -25,7 +25,7 @@ const App = () => {
 
       <footer>
         <p className="py-3 mb-0 text-center text-sm text-foreground">
-          Built with React & Zustand & Tailwind CSS
+          Built with React & Zustand
         </p>
 
         {/* GitHub */}

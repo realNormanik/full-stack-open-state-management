@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001/anecdotes";
+const baseUrl = "/anecdotes";
 
 export const getAll = async () => {
   const response = await fetch(baseUrl);

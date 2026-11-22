@@ -1,24 +1,41 @@
-import { useCreateAnecdote } from '../hooks/useAnecdotes'
+import { useCreateAnecdote } from "../hooks/useAnecdotes";
 
 const AnecdoteForm = () => {
-  const newAnecdoteMutation = useCreateAnecdote()
+  const newAnecdoteMutation = useCreateAnecdote();
 
   const onCreate = (event) => {
-    event.preventDefault()
-    const content = event.target.anecdote.value
-    event.target.reset()
-    newAnecdoteMutation.mutate({ content })
-  }
+    event.preventDefault();
+    const content = event.target.anecdote.value;
+    event.target.reset();
+    newAnecdoteMutation.mutate({ content });
+  };
 
   return (
-    <div>
-      <h3>create new</h3>
-      <form onSubmit={onCreate}>
-        <input name="anecdote" />
-        <button type="submit">create</button>
+    <section className="composer">
+      <h2>create new</h2>
+      <form className="compose" onSubmit={onCreate}>
+        <input
+          className="field"
+          name="anecdote"
+          aria-label="anecdote"
+          placeholder="Write an anecdote…"
+          autoComplete="off"
+        />
+        <button className="create" type="submit">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            fill="currentColor"
+            width="18"
+            height="18"
+          >
+            <path d="M468 64C487.2 64 505.6 71.6 519.1 85.2L554.8 120.9C568.4 134.4 576 152.8 576 172C576 191.2 568.4 209.6 554.8 223.1L509.9 268L372 130.1L416.9 85.2C430.4 71.6 448.8 64 468 64zM338.1 164L338.1 164L476 301.9L260.9 517C250.2 527.7 236.8 535.5 222.2 539.6L94.4 575.1C86.1 577.4 77.1 575.1 71 568.9C64.9 562.7 62.5 553.8 64.8 545.5L100.4 417.8C104.5 403.2 112.2 389.9 123 379.1L304.1 197.9L287 180.9C277.6 171.5 262.4 171.5 253.1 180.9L153 281C143.6 290.4 128.4 290.4 119.1 281C109.8 271.6 109.7 256.4 119.1 247.1L219.1 146.9C247.2 118.8 292.8 118.8 320.9 146.9L338.1 164z" />
+          </svg>
+          create
+        </button>
       </form>
-    </div>
-  )
-}
+    </section>
+  );
+};
 
-export default AnecdoteForm
+export default AnecdoteForm;
