@@ -252,7 +252,7 @@ npm run test:notifications
 ## 🚀 Demo
 
 You can view a working version of the project here:
-👉 [Vercel]()
+👉 [Vercel](https://part6-query-anecdotes.vercel.app/)
 
 ## 🧠 Notes
 
