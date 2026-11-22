@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001/anecdotes";
+const baseUrl = import.meta.env.MODE === "production" ? "/anecdotes" : "http://localhost:3001/anecdotes";
 
 export const getAll = async () => {
   const response = await fetch(baseUrl);
