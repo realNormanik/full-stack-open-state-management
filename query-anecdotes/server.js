@@ -4,7 +4,7 @@ import { cors } from "@tinyhttp/cors";
 import { json } from "milliparsec";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
-import { createApp } from "json-server/lib/app.js";
+import { createApp } from "json-server-beta/lib/app.js";
 
 const dbFile = process.env.DB_FILE || "db.json";
 const db = new Low(new JSONFile(dbFile), { anecdotes: [] });
