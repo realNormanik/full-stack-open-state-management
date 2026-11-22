@@ -146,7 +146,7 @@ npm test
 ## 🚀 Demo
 
 You can view a working version of the project here:
-👉 [Vercel]()
+👉 [Vercel](https://part6-unicafe.vercel.app/)
 
 ## 🧠 Notes
 
