@@ -8,6 +8,8 @@ The Query Anecdotes application itself lives inside the `query-anecdotes` folder
 
 ```
 query-anecdotes/
+├── api/
+│   └── index.js
 ├── public/
 │   └── favicon.ico
 ├── src/
@@ -29,6 +31,7 @@ query-anecdotes/
 ├── package.json
 ├── README.md
 ├── server.js
+├── vercel.json
 └── vite.config.js
 ```
 

@@ -8,6 +8,8 @@ The Anecdotes application itself lives inside the `anecdotes` folder:
 
 ```
 anecdotes/
+├── api/
+│   └── index.js
 ├── public/
 │   └── favicon.ico
 ├── src/
@@ -32,6 +34,7 @@ anecdotes/
 ├── package-lock.json
 ├── package.json
 ├── README.md
+├── vercel.json
 └── vite.config.js
 ```
 
